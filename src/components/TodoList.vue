@@ -1,13 +1,13 @@
 <template>
   <div>
-    <ul>
-      <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.items">
+    <transition-group name="list" tag="ul">
+      <li v-for="(todoItem, index) in this.$store.state.todoItems" v-bind:key="todoItem.items">
         <span class="checkBtn" v-bind:class="{checked: todoItem.completed}" 
         v-on:click="toggleCompleted(todoItem, index)">check</span>
         {{ todoItem.items }}
         <span class="deleteBtn" v-on:click="deleteTodos(todoItem, index)">delete</span>
-        </li>
-    </ul>
+      </li>
+    </transition-group>
   </div>
 </template>
 
@@ -20,17 +20,17 @@ export default {
   // },
   props: ["propsdata"],
   methods: {
-    deleteTodos: function(todoItem, index) {
+    deleteTodos(todoItem, index) {
       // localStorage.removeItem(todoItem);
       // this.todoItems.splice(index, 1);
       this.$emit("removeItem", todoItem, index);
     },
-    toggleCompleted: function(todoItem, index) {
+    toggleCompleted(todoItem, index) {
       this.$emit("toggleItem", todoItem, index);
       // todoItem.completed = !todoItem.completed;
       // localStorage.removeItem(todoItem.items);
       // localStorage.setItem(todoItem.items, JSON.stringify(todoItem));
-    }
+    },
   },
   // created: function() {
   //   if(localStorage.length > 0) {
@@ -45,9 +45,13 @@ export default {
 </script>
 
 <style scoped>
-li {display: flex; justify-content: space-between; margin-bottom: 10px;}
+li {display: flex; justify-content: space-between; margin-bottom: 10px; transition: .3s;}
 li:last-child {margin-bottom: 0;}
 .checkBtn {padding: 1px 5px; border: 1px solid green; color: green;}
 .checked {border: 1px solid #ccc; color: #ccc;}
 .deleteBtn {padding: 1px 5px; border: 1px solid red; color: red;}
+
+/* list-item transition */
+.list-enter-active, .list-leave-active {transition: all 1s;}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {opacity: 0; transform: translateY(30px);}
 </style>

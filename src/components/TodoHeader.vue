@@ -1,5 +1,7 @@
 <template>
-  <header><h1>TODO LIST!</h1></header>
+  <header>
+    <h1>TODO LIST!</h1>
+    </header>
 </template>
 
 <script>
