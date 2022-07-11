@@ -18,12 +18,13 @@ export default {
   //     todoItems: [],
   //   }
   // },
-  props: ["propsdata"],
+  // props: ["propsdata"],
   methods: {
     deleteTodos(todoItem, index) {
       // localStorage.removeItem(todoItem);
       // this.todoItems.splice(index, 1);
-      this.$emit("removeItem", todoItem, index);
+      // this.$emit("removeItem", todoItem, index);
+      this.$store.commit("removeOneItem", todoItem, index)
     },
     toggleCompleted(todoItem, index) {
       this.$emit("toggleItem", todoItem, index);

@@ -2,9 +2,8 @@
 <div id="app">
 
   <TodoHeader></TodoHeader>
-  <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
-  <TodoList v-bind:propsdata="todoItems" 
-            v-on:removeItem="removeOneItem" 
+  <TodoInput></TodoInput>
+  <TodoList v-bind:propsdata="todoItems"
             v-on:toggleItem="toggleOneItem">
   </TodoList>
   <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
@@ -24,15 +23,15 @@ export default {
     }
   },
   methods: {
-    addOneItem(todoItem) {
-      const obj = {completed: false, items: todoItem,};
-      localStorage.setItem(todoItem, JSON.stringify(obj));
-      this.todoItems.push(obj);
-    },
-    removeOneItem(todoItem, index) {
-      localStorage.removeItem(todoItem.items);
-      this.todoItems.splice(index, 1);
-    },
+    // addOneItem(todoItem) {
+    //   const obj = {completed: false, items: todoItem,};
+    //   localStorage.setItem(todoItem, JSON.stringify(obj));
+    //   this.todoItems.push(obj);
+    // },
+    // removeOneItem(todoItem, index) {
+    //   localStorage.removeItem(todoItem.items);
+    //   this.todoItems.splice(index, 1);
+    // },
     toggleOneItem(todoItem, index) {
       // todoItem.completed = !todoItem.completed;
       this.todoItems[index].completed = !this.todoItems[index].completed;
@@ -44,14 +43,14 @@ export default {
       this.todoItems = [];
     }
   },
-  created() {
-    if(localStorage.length > 0) {
-      for(let i = 0; i < localStorage.length; i++) {
-        JSON.parse(localStorage.getItem(localStorage.key(i)));
-        this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))))
-      }
-    }
-  },
+  // created() {
+  //   if(localStorage.length > 0) {
+  //     for(let i = 0; i < localStorage.length; i++) {
+  //       // JSON.parse(localStorage.getItem(localStorage.key(i)));
+  //       this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))))
+  //     }
+  //   }
+  // },
   components: {
     TodoHeader,
     TodoInput,

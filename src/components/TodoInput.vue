@@ -35,7 +35,8 @@ export default {
         // var obj = {completed: false, items: this.newTodoItem,};
         // localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
         // this.$emit("이벤트 이름", "인자1, 인자2...")
-        this.$emit("addTodoItem", this.newTodoItem);
+        // this.$emit("addTodoItem", this.newTodoItem);
+        this.$store.commit('addOneItem', this.newTodoItem);
         this.newTodoItem = "";
       } else {
         this.showModal = !this.showModal;

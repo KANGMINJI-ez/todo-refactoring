@@ -8,7 +8,7 @@ const storage = {
     const arr = [];
     if(localStorage.length > 0) {
       for(let i = 0; i < localStorage.length; i++) {
-        JSON.parse(localStorage.getItem(localStorage.key(i)));
+        // JSON.parse(localStorage.getItem(localStorage.key(i)));
         arr.push(JSON.parse(localStorage.getItem(localStorage.key(i))))
       }
     }
@@ -19,5 +19,16 @@ const storage = {
 export const store = new Vuex.Store({
   state: {
     todoItems: storage.fetch(),
+  },
+  mutations: {
+    addOneItem(state, todoItem) {
+      const obj = {completed: false, items: todoItem,};
+      localStorage.setItem(todoItem, JSON.stringify(obj));
+      state.todoItems.push(obj);
+    },
+    removeOneItem(state, todoItem, index) {
+      localStorage.removeItem(todoItem);
+      state.todoItems.splice(index, 1);
+    },
   }
 });
