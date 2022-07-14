@@ -26,9 +26,27 @@ export const store = new Vuex.Store({
       localStorage.setItem(todoItem, JSON.stringify(obj));
       state.todoItems.push(obj);
     },
-    removeOneItem(state, todoItem, index) {
-      localStorage.removeItem(todoItem);
-      state.todoItems.splice(index, 1);
+    removeOneItem(state, todoItem) {
+      localStorage.removeItem(todoItem.todoItem.items);
+      state.todoItems.splice(todoItem.index, 1);
     },
+    toggleCompleted(state, todoItem) {
+      state.todoItems[todoItem.index].completed = !state.todoItems[todoItem.index].completed;
+      localStorage.removeItem(todoItem.todoItem.items);
+      localStorage.setItem(todoItem.todoItem.items, JSON.stringify(todoItem.todoItem));
+    },
+    clearAllItems(state) {
+      localStorage.clear();
+      state.todoItems = {};
+    },
+    checkAllItems(state) {
+      for (let i = 0; i < localStorage.length; i++) {
+        state.todoItems[i].completed = true;
+        localStorage.removeItem(state.todoItems[i].items);
+        localStorage.setItem(state.todoItems[i].items, JSON.stringify(state.todoItems[i]));
+      }
+    }
   }
 });
+
+// 질문: https://beomy.tistory.com/86
