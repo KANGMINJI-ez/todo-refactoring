@@ -15,7 +15,6 @@ const storage = {
     return arr;
   }
 };
-
 export const store = new Vuex.Store({
   state: {
     todoItems: storage.fetch(),
@@ -37,14 +36,24 @@ export const store = new Vuex.Store({
     },
     clearAllItems(state) {
       localStorage.clear();
-      state.todoItems = {};
+      state.todoItems = [];
     },
-    checkAllItems(state) {
-      for (let i = 0; i < localStorage.length; i++) {
+    toggleCheckAllItems(state) {
+      for(let i = 0; i < localStorage.length; i++) {
         state.todoItems[i].completed = true;
         localStorage.removeItem(state.todoItems[i].items);
         localStorage.setItem(state.todoItems[i].items, JSON.stringify(state.todoItems[i]));
       }
+    },
+    showActiveTodos(state) {
+      let completedArr = [];
+      for(let i = 0; i < localStorage.length; i++) {
+        if(state.todoItems[i].completed == false) {
+          completedArr.push(state.todoItems[i]);
+        }
+      }
+      console.log(completedArr);
+      return completedArr;
     }
   }
 });

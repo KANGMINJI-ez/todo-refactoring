@@ -1,7 +1,8 @@
 <template>
 <div class="clearAllContainer">
   <span class="clearAllBtn" v-on:click="deleteAll">Clear All</span>
-  <span class="checkAllBtn" v-on:click="checkAll">모두 완료</span>
+  <span class="toggleCheckAllBtn" v-on:click="toggleCheckAll">모두 완료</span>
+  <span class="viewActive" v-on:click="viewActiveTasks">완료 목록 보기</span>
 </div>
 </template>
 
@@ -13,8 +14,11 @@ export default {
       // localStorage.clear();
       this.$store.commit("clearAllItems");
     },
-    checkAll() {
-      this.$store.commit("checkAllItems");
+    toggleCheckAll() {
+      this.$store.commit("toggleCheckAllItems");
+    },
+    viewActiveTasks() {
+      this.$store.commit("showActiveTodos");
     }
   }
 
@@ -22,5 +26,5 @@ export default {
 </script>
 
 <style scoped>
-.checkAllBtn {display: block; margin-top: 20px;}
+.toggleCheckAllBtn {display: block; margin-top: 20px;}
 </style>
